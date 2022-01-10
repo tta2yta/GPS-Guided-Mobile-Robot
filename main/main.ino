@@ -67,6 +67,7 @@ int navigateRobot1(float azimuth, char dir) {
 }
 
 
+// Function to avoid obstacle
 void avoidobstacle(void){
   for (int i=0; i <= 80; i++){
     servo.write(i);
@@ -97,6 +98,8 @@ void avoidobstacle(void){
   }
 }
 
+
+//Function for operating ultrosonic mounted servo
 void ultrasonic(void){
   int i;
   for (i=0; i <= 100; i++)
@@ -215,11 +218,11 @@ void loop()
       azimuth = abs(compassheading - bearing1);
       //azimuth = azimuth < 0 ? azimuth * -1 : azimuth;
 
-      Serial.print("inside Latitude = "); Serial.print(fix.latitude(), 6);
-      Serial.print("inside Longitude = "); Serial.println(fix.longitude(), 6);
-      Serial.print("inside bearing = "); Serial.println(bearing);
-      Serial.print("inside azimuth = "); Serial.println(azimuth);
-      Serial.print("inside compass = "); Serial.println(compassheading);
+//      Serial.print("inside Latitude = "); Serial.print(fix.latitude(), 6);
+//      Serial.print("inside Longitude = "); Serial.println(fix.longitude(), 6);
+//      Serial.print("inside bearing = "); Serial.println(bearing);
+//      Serial.print("inside azimuth = "); Serial.println(azimuth);
+//      Serial.print("inside compass = "); Serial.println(compassheading);
       if (azimuth < 10){
         servo1.write(90);
         servo2.write(90);
@@ -242,11 +245,11 @@ void loop()
       azimuth = abs(compassheading - bearing1);
       //azimuth = azimuth < 0 ? azimuth * -1 : azimuth;
       
-      Serial.print("inside Latitude = "); Serial.print(fix.latitude(), 6);
-      Serial.print("inside Longitude = "); Serial.println(fix.longitude(), 6);
-      Serial.print("inside bearing = "); Serial.println(bearing);
-      Serial.print("inside azimuth = "); Serial.println(azimuth);
-      Serial.print("inside copmass = "); Serial.println(compassheading);
+//      Serial.print("inside Latitude = "); Serial.print(fix.latitude(), 6);
+//      Serial.print("inside Longitude = "); Serial.println(fix.longitude(), 6);
+//      Serial.print("inside bearing = "); Serial.println(bearing);
+//      Serial.print("inside azimuth = "); Serial.println(azimuth);
+//      Serial.print("inside copmass = "); Serial.println(compassheading);
       if (azimuth < 10){
         servo1.write(90);
         servo2.write(90);
@@ -263,12 +266,15 @@ void loop()
       servo1.write(130);
       servo2.write(45);
     }
-     
+
+     // condition that determines, after this specified duration the robot reaches destination
       if(durations()  >= 25){
       servo1.detach();
       servo2.detach();
       exit(0);
       }
+
+      // condition that determines, after this specified duration the robot moves to the second turning point
      if(durations()  >= 12){
         bearing1= bearing2;
         Serial.println("bearing 2");
